@@ -7,9 +7,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.apache.spark:spark-core_2.10:1.0.0" level="project" />
-    <orderEntry type="library" name="org.apache.spark:spark-sql_2.10:1.0.0" level="project" />
-    <orderEntry type="library" name="org.apache.spark:spark-streaming-kafka_2.10:1.0.0" level="project" />
+    <!--<orderEntry type="library" name="org.apache.spark:spark-core_2.10:1.0.0" level="project" />-->
+    <!--<orderEntry type="library" name="org.apache.spark:spark-sql_2.10:1.0.0" level="project" />-->
+    <!--<orderEntry type="library" name="org.apache.spark:spark-streaming-kafka_2.10:1.0.0" level="project" />-->
     <orderEntry type="library" name="org.apache.spark:spark-streaming_2.11:2.3.1" level="project" />
+    <orderEntry type="library" name="org.apache.kafka:connect-api:2.0.0" level="project" />
+    <orderEntry type="library" name="org.apache.spark:spark-streaming-kafka-0-10-assembly_2.11:2.3.1" level="project" />
+    <orderEntry type="library" name="org.apache.spark:spark-core_2.11:2.3.1" level="project" />
+    <orderEntry type="library" name="org.apache.spark:spark-core_2.11:2.3.11" level="project" />
+    <orderEntry type="library" name="org.apache.spark:spark-sql_2.11:2.3.1" level="project" />
   </component>
 </module>
