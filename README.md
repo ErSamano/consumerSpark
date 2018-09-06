@@ -23,19 +23,23 @@ The idea is to create a consumer to pull data from a Sensor emulating the outcom
 ## 1 Source
 The first step is the generation of data from a pressure sensor, the idea is to create a consumer after the generate data to pull it from the Sensor emulating the outcome from IoT. The sensor is producing the following parameters:
 
-* Sensor Name	
-* Measurement Timestamp	
+* Sensor name
+* Measurement timestamp
 * Measurement ID
-* Resource ID
-* Speed Timestamp
-* Channel
-* Interval Radiation
-* Pressure Response Code
-* Pressure Type
-* Measurement Timestamp Label
-* Channel Type ID
-* Data Reception Type
-
+* Resource ID,
+* Resource type
+* Data type
+* Speed timestamp
+* Interval radiation
+* Channel 
+* Channel status
+* Condition type
+* Seconds of reading 
+* Channel type ID
+* Pressure response code
+* Measurement timestamp label
+* Pressure type
+* Data reception status
 
 ### Instructions to execute the the sensor emulator script stand alone:
 
