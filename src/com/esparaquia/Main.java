@@ -14,10 +14,7 @@ import org.apache.spark.streaming.kafka010.KafkaUtils;
 import org.apache.spark.streaming.kafka010.LocationStrategies;
 import scala.Tuple2;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -54,9 +51,18 @@ public class Main {
                     }
                 });
 
+        JavaPairDStream<String, String> jWindowDStream  = jPairDStream.reduceByKeyAndWindow((i1, i2) -> i1 + i2, Durations.seconds(30), Durations.seconds(10));
+        System.out.println("Windowed Data in last 30 seconds every 10 seconds");
+        jWindowDStream.print();
+        System.out.println("Windowed Data Ends");
+
+
+        //To print all the consumed data
         jPairDStream.foreachRDD(jPairRDD -> {
-            jPairRDD.foreach(rdd -> {
-                System.out.println("VALUE= "+rdd._2());
+        jPairRDD.foreach(rdd -> {
+        Random rand = new Random();
+        int  n = rand.nextInt(5000) + 1;
+                System.out.println("key="+n+" VALUE="+rdd._2());
             });
         });
 
