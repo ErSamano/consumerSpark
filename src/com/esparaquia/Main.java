@@ -14,10 +14,7 @@ import org.apache.spark.streaming.kafka010.KafkaUtils;
 import org.apache.spark.streaming.kafka010.LocationStrategies;
 import scala.Tuple2;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -54,9 +51,18 @@ public class Main {
                     }
                 });
 
+        JavaPairDStream<String, String> jWindowDStream  = jPairDStream.reduceByKeyAndWindow((i1, i2) -> i1 + i2, Durations.seconds(30), Durations.seconds(10));
+        System.out.println("Windowed Data in last 30 seconds every 10 seconds");
+        jWindowDStream.print();
+        System.out.println("Windowed Data Ends");
+
+
+        //To print all the consumed data
         jPairDStream.foreachRDD(jPairRDD -> {
-            jPairRDD.foreach(rdd -> {
-                System.out.println(" value="+rdd._2());
+        jPairRDD.foreach(rdd -> {
+        Random rand = new Random();
+        int  n = rand.nextInt(5000) + 1;
+                System.out.println("key="+n+" VALUE="+rdd._2());
             });
         });
 
@@ -64,55 +70,5 @@ public class Main {
         jssc.awaitTermination();
 
 
-    }
+    }//File end
 }
-
-
-/*package com.esparaquia;
-
-//import org.apache.spark.SparkConf;
-//import org.apache.spark.streaming.Durations;
-//import org.apache.spark.streaming.api.java.JavaDStream;
-//import org.apache.spark.streaming.api.java.JavaPairDStream;
-//import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
-//import org.apache.spark.streaming.api.java.JavaStreamingContext;
-
-import org.apache.spark.*;
-import org.apache.spark.api.java.function.*;
-import org.apache.spark.streaming.*;
-import org.apache.spark.streaming.api.java.*;
-import scala.Tuple2;
-
-import java.util.Arrays;
-
-public class Main {
-    public static void main(String[] a) {
-
-        //Create a local StreamingContext with two working thread and batch interval of 1 second
-        SparkConf conf = new SparkConf().setMaster("local[2]").setAppName("IoTSensor");
-        JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(1));
-
-        //Create a DStream that will connect to hostname:port, localhost:9092
-        //This <<lines>> DStream represents the stream of data that will be received from the data server.
-        // Each record in this stream is a line of text
-        JavaReceiverInputDStream<String> lines = jssc.socketTextStream("localhost",9999);
-
-        //Split each line into words
-        //<<flatMap>> is a DStream operation that creates a new DStream by generating multiple new records
-        JavaDStream<String> words = lines.flatMap(x -> Arrays.asList(x.split(" ")).iterator());
-
-        //Count each word in each batch
-        JavaPairDStream<String, Integer> pairs = words.mapToPair(s -> new Tuple2<>(s, 1));
-        JavaPairDStream<String, Integer> wordsCounts = pairs.reduceByKey((i1, i2) -> i1 + i2);
-
-        //Print the first ten elements of each RDD generated in this DStream to the console
-        wordsCounts.print();
-
-        //Start the computation
-        jssc.start();
-
-        //Wait for the computation to terminate
-        jssc.awaitTermination();
-
-    }
-}*/
